@@ -34,6 +34,4 @@ jobs:
         environment_name: ${{ secrets.EB_ENV_NAME }}
         version_label: ${{ github.sha }}
         region: ${{ secrets.AWS_REGION }}
-        bucket_name: ${{ secrets.EB_S3_BUCKET }}
-        bucket_key: app.zip
-        zip_file: app.zip
+        deployment_package: app.zip
