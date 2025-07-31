@@ -22,9 +22,6 @@ app.get('/greet/:name', (req, res) => {
     return res.status(200).json({ success: true, message: `Hello, ${name}` });
 });
 
-app.get('/api/products', (req, res) => {
-    return res.status(200).json({ success: true, message: "Products Fetched", products: products })
-});
 
 const PORT = process.env.PORT || 8000;
 
