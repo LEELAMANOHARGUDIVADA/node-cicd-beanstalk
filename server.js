@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
+import { products } from "./products.js";
 dotenv.config()
 
 const app = express();
@@ -19,6 +20,10 @@ app.get('/', (req, res) => {
 app.get('/greet/:name', (req, res) => {
     const { name } = req.params;
     return res.status(200).json({ success: true, message: `Hello ${name}, How are you?` });
+});
+
+app.get('/products', (req, res) => {
+    return res.status(200).json({ success: true, products: products });
 });
 
 
