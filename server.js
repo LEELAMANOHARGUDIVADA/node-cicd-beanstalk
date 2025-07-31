@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/greet/:name', (req, res) => {
     const { name } = req.params;
-    return res.status(200).json({ success: true, message: `Hello, ${name}` });
+    return res.status(200).json({ success: true, message: `Hello ${name}, How are you?` });
 });
 
 
