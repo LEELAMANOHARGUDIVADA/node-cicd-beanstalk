@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 dotenv.config()
+import products from "./data/products.json" assert { type: 'json' };
 
 const app = express();
 
@@ -19,6 +20,10 @@ app.get('/', (req, res) => {
 app.get('/greet/:name', (req, res) => {
     const { name } = req.params;
     return res.status(200).json({ success: true, message: `Hello, ${name}` });
+});
+
+app.get('/api/products', (req, res) => {
+    return res.status(200).json({ success: true, message: "Products Fetched", products: products })
 });
 
 const PORT = process.env.PORT || 8000;
