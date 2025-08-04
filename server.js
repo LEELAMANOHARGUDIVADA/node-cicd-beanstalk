@@ -1,8 +1,10 @@
+import dotenv from "dotenv"
+dotenv.config()
 import express from "express"
 import cors from "cors"
-import dotenv from "dotenv"
 import { products } from "./products.js";
-dotenv.config()
+import customerRoutes from "./routes/CustomerRoutes.js"
+import { connectPostgres } from "./db/postgresdb.js";
 
 const app = express();
 
@@ -12,6 +14,8 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
+
+app.use('/api/customers', customerRoutes);
 
 app.get('/', (req, res) => {
     res.send("SERVER IS UP AND RUNNING");
@@ -30,5 +34,6 @@ app.get('/products', (req, res) => {
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
+    connectPostgres(process.env.DATABASE_URL);
     console.log("SERVER RUNNING ON PORT", PORT);
 });
