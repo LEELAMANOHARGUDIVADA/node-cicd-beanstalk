@@ -5,6 +5,7 @@ import cors from "cors"
 import { products } from "./products.js";
 import customerRoutes from "./routes/CustomerRoutes.js"
 import { connectPostgres } from "./db/postgresdb.js";
+import { connectDB } from "./db/db.js";
 
 const app = express();
 
@@ -35,5 +36,6 @@ const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
     connectPostgres(process.env.DATABASE_URL);
+    connectDB();
     console.log("SERVER RUNNING ON PORT", PORT);
 });
