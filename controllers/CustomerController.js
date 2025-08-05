@@ -112,7 +112,7 @@ const searchCustomers = async (req, res) => {
         }
 
         if(conditions.length == 0){
-            return res.status(200).json({ success: false, message: "No Params" })
+            return res.status(400).json({ success: false, message: "Invalid Fields" })
         }
 
         query += conditions.join(' AND ');
