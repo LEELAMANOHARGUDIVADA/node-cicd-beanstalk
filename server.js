@@ -5,8 +5,22 @@ import cors from "cors"
 import { products } from "./products.js";
 import customerRoutes from "./routes/CustomerRoutes.js"
 import {connectPostgresDB} from "./db/postgresPool.js";
+import swaggerUi from "swagger-ui-express"
+import swaggerJSDoc from "swagger-jsdoc";
 
 const app = express();
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Imerys API Documentation',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./routes/*.js'],
+};
+const swaggerSpec = swaggerJSDoc(options)
 
 app.use(express.json());
 app.use(cors({
@@ -14,6 +28,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/customers', customerRoutes);
 
