@@ -47,68 +47,72 @@ const searchCustomers = async (req, res) => {
         let query = searchCustomersQuery;
         let conditions = [];
 
-        if (BA_Origin) {
+        if (BA_Origin && BA_Origin != "") {
             conditions.push(`BA_ORIGIN = '${BA_Origin}'`);
         }
 
-        if (Customer_Group_Calc) {
+        if (Customer_Group_Calc && Customer_Group_Calc != "") {
             conditions.push(`Customer_Group_Calc = '${Customer_Group_Calc}'`);
         }
-        if (Cust_Name) {
+        if (Cust_Name && Cust_Name != "") {
             conditions.push(`Cust_Name = '${Cust_Name}'`);
         }
-        if (Cust_No) {
+        if (Cust_No && Cust_No != "") {
             conditions.push(`Cust_No = '${Cust_No}'`);
         }
-        if (Cust_Elim_or_Name) {
+        if (Cust_Elim_or_Name && Cust_Elim_or_Name != "") {
             conditions.push(`Cust_Elim_or_Name = '${Cust_Elim_or_Name}'`);
         }
-        if (Cust_Sales_Area) {
+        if (Cust_Sales_Area && Cust_Sales_Area != "") {
             conditions.push(`Cust_Sales_Area = '${Cust_Sales_Area}'`);
         }
-        if (Operational_Hub_Code) {
+        if (Operational_Hub_Code && Cust_Sales_Area != "") {
             conditions.push(`Operational_Hub_Code = '${Operational_Hub_Code}'`);
         }
 
-        if (Company_Code) {
+        if (Company_Code && Company_Code != "") {
             conditions.push(`Company_Code = '${Company_Code}'`);
         }
-        if (Company_Full_Name) {
+        if (Company_Full_Name && Company_Full_Name != "") {
             conditions.push(`Company_Full_Name = '${Company_Full_Name}'`);
         }
 
-        if (Segment) {
+        if (Segment && Segment != "") {
             conditions.push(`Segment = '${Segment}'`)
         }
-        if (Sales_Person_Name) {
+        if (Sales_Person_Name && Sales_Person_Name != "") {
             conditions.push(`Sales_Person_Name = '${Sales_Person_Name}'`)
         }
-        if (Market_Code) {
+        if (Market_Code && Market_Code != "") {
             conditions.push(`Market_Code = '${Market_Code}'`)
         }
-        if (Operational_Site_Group) {
+        if (Operational_Site_Group && Operational_Site_Group != "") {
             conditions.push(`Operational_Site_Group = '${Operational_Site_Group}'`)
         }
-        if (Plant_Code) {
+        if (Plant_Code && Plant_Code != "") {
             conditions.push(`Plant_Code = '${Plant_Code}'`)
         }
-        if (Plant_Name) {
+        if (Plant_Name && Plant_Name != "") {
             conditions.push(`Plant_Name = '${Plant_Name}'`)
         }
-        if (Commercial_Name) {
+        if (Commercial_Name && Commercial_Name != "") {
             conditions.push(`Commercial_Name = '${Commercial_Name}'`)
         }
-        if (Package_Type) {
+        if (Package_Type && Package_Type != "") {
             conditions.push(`Package_Type = '${Package_Type}'`)
         }
-        if (Product_Code) {
+        if (Product_Code && Product_Code != "") {
             conditions.push(`Product_Code = '${Product_Code}'`)
         }
-        if (Mineral_Calc) {
+        if (Mineral_Calc && Mineral_Calc != "") {
             conditions.push(`Mineral_Calc = '${Mineral_Calc}'`)
         }
-        if (SOP_Mineral_Group) {
+        if (SOP_Mineral_Group && SOP_Mineral_Group != "") {
             conditions.push(`SOP_Mineral_Group = '${SOP_Mineral_Group}'`)
+        }
+
+        if(conditions.length == 0){
+            return res.status(200).json({ success: false, message: "No Params" })
         }
 
         query += conditions.join(' AND ');
