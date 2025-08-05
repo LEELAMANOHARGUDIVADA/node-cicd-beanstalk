@@ -24,7 +24,7 @@ const swaggerSpec = swaggerJSDoc(options)
 
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: "http://localhost:4200",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
