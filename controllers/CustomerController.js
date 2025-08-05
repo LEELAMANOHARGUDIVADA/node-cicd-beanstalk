@@ -1,13 +1,18 @@
-import { pool } from "../db/db.js";
-import { sql } from "../db/postgresdb.js";
+import { allCustomersQuery, searchCustomersQuery } from "../constants/queries.js";
+import { pool } from "../db/postgresPool.js";
+
 
 const allCustomers = async (req, res) => {
     try {
-        const customers = await sql`SELECT * FROM customer_data`;
-        if (customers.length == 0) {
-            return res.status(400).json({ success: false, message: "No Data Found" });
-        }
-        return res.status(200).json({ success: true, message: "Data Fetched", customers });
+        pool.query(allCustomersQuery, function (err, results) {
+            if (err) {
+                return res.status(400).json({ success: false, message: err });
+            }
+            if (results.rowCount == 0) {
+                return res.status(400).json({ success: false, message: "No Data Found" })
+            }
+            return res.status(200).json({ success: true, message: "Customers Fetched", customers: results.rows });
+        });
 
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
@@ -16,36 +21,30 @@ const allCustomers = async (req, res) => {
 
 const searchCustomers = async (req, res) => {
     try {
-        const { BA_Origin, Operational_Hub_Code } = req.query;
-
-        const customers = await sql`SELECT * FROM customer_data WHERE BA_ORIGIN = ${BA_Origin} AND Operational_Hub_Code = ${Operational_Hub_Code}`;
-
-        if (customers.length == 0) {
-            return res.status(400).json({ success: false, message: "No Data Found" });
-        }
-        return res.status(200).json({ success: true, message: "Customers Fetched", customers });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ success: false, message: error.message });
-    }
-}
-
-const searchCustomersMySql = async (req, res) => {
-    try {
-        const { 
-            BA_Origin, 
-            Customer_Group_Calc, 
-            Cust_Name, 
-            Cust_No, 
-            Cust_Elim_or_Name, 
+        const {
+            BA_Origin,
+            Customer_Group_Calc,
+            Cust_Name,
+            Cust_No,
+            Cust_Elim_or_Name,
             Cust_Sales_Area,
             Company_Code,
             Company_Full_Name,
             Segment,
-            Operational_Hub_Code 
+            Sales_Person_Name,
+            Market_Code,
+            Operational_Hub_Code,
+            Operational_Site_Group,
+            Plant_Code,
+            Plant_Name,
+            Commercial_Name,
+            Package_Type,
+            Product_Code,
+            Mineral_Calc,
+            SOP_Mineral_Group
         } = req.query;
 
-        let sql = 'SELECT * FROM customer_data WHERE '
+        let query = searchCustomersQuery;
         let conditions = [];
 
         if (BA_Origin) {
@@ -71,33 +70,64 @@ const searchCustomersMySql = async (req, res) => {
             conditions.push(`Operational_Hub_Code = '${Operational_Hub_Code}'`);
         }
 
-        if(Company_Code){
+        if (Company_Code) {
             conditions.push(`Company_Code = '${Company_Code}'`);
         }
-        if(Company_Full_Name){
+        if (Company_Full_Name) {
             conditions.push(`Company_Full_Name = '${Company_Full_Name}'`);
         }
 
-        if(Segment){
+        if (Segment) {
             conditions.push(`Segment = '${Segment}'`)
         }
+        if (Sales_Person_Name) {
+            conditions.push(`Sales_Person_Name = '${Sales_Person_Name}'`)
+        }
+        if (Market_Code) {
+            conditions.push(`Market_Code = '${Market_Code}'`)
+        }
+        if (Operational_Site_Group) {
+            conditions.push(`Operational_Site_Group = '${Operational_Site_Group}'`)
+        }
+        if (Plant_Code) {
+            conditions.push(`Plant_Code = '${Plant_Code}'`)
+        }
+        if (Plant_Name) {
+            conditions.push(`Plant_Name = '${Plant_Name}'`)
+        }
+        if (Commercial_Name) {
+            conditions.push(`Commercial_Name = '${Commercial_Name}'`)
+        }
+        if (Package_Type) {
+            conditions.push(`Package_Type = '${Package_Type}'`)
+        }
+        if (Product_Code) {
+            conditions.push(`Product_Code = '${Product_Code}'`)
+        }
+        if (Mineral_Calc) {
+            conditions.push(`Mineral_Calc = '${Mineral_Calc}'`)
+        }
+        if (SOP_Mineral_Group) {
+            conditions.push(`SOP_Mineral_Group = '${SOP_Mineral_Group}'`)
+        }
 
-        sql += conditions.join(' AND ')
-        console.log(sql)
-        pool.query(sql, function (err, results) {
+        query += conditions.join(' AND ');
+        console.log(query);
+        pool.query(query, function (err, results) {
             if (err) {
-                return res.status(400).json({ success: true, message: err.message });
+                return res.status(400).json({ success: false, message: err });
             }
-
-            return res.status(200).json({ success: true, message: "Customers Fetched", customers: results });
+            if (results.rowCount == 0) {
+                return res.status(400).json({ success: false, message: "No Data Found" })
+            }
+            return res.status(200).json({ success: true, message: "Customers Fetched", customers: results.rows });
         });
 
-
     } catch (error) {
-        console.log(error);
+        console.log("Error", error.message);
         return res.status(500).json({ success: false, message: error.message });
     }
 }
 
 
-export { allCustomers, searchCustomers, searchCustomersMySql }
+export { allCustomers, searchCustomers }
