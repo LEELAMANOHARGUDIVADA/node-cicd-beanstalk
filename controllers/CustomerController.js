@@ -48,67 +48,67 @@ const searchCustomers = async (req, res) => {
         let conditions = [];
 
         if (BA_Origin && BA_Origin != "") {
-            conditions.push(`BA_ORIGIN = '${BA_Origin}'`);
+            conditions.push(`LOWER(BA_ORIGIN) = LOWER('${BA_Origin}')`);
         }
 
         if (Customer_Group_Calc && Customer_Group_Calc != "") {
-            conditions.push(`Customer_Group_Calc = '${Customer_Group_Calc}'`);
+            conditions.push(`LOWER(Customer_Group_Calc) = LOWER('${Customer_Group_Calc}')`);
         }
         if (Cust_Name && Cust_Name != "") {
-            conditions.push(`Cust_Name = '${Cust_Name}'`);
+            conditions.push(`LOWER(Cust_Name) = LOWER('${Cust_Name}')`);
         }
         if (Cust_No && Cust_No != "") {
-            conditions.push(`Cust_No = '${Cust_No}'`);
+            conditions.push(`LOWER(Cust_No) = ('${Cust_No}')`);
         }
         if (Cust_Elim_or_Name && Cust_Elim_or_Name != "") {
-            conditions.push(`Cust_Elim_or_Name = '${Cust_Elim_or_Name}'`);
+            conditions.push(`LOWER(Cust_Elim_or_Name) = LOWER('${Cust_Elim_or_Name}')`);
         }
         if (Cust_Sales_Area && Cust_Sales_Area != "") {
-            conditions.push(`Cust_Sales_Area = '${Cust_Sales_Area}'`);
+            conditions.push(`LOWER(Cust_Sales_Area) = LOWER('${Cust_Sales_Area}')`);
         }
         if (Operational_Hub_Code && Cust_Sales_Area != "") {
-            conditions.push(`Operational_Hub_Code = '${Operational_Hub_Code}'`);
+            conditions.push(`LOWER(Operational_Hub_Code) = LOWER('${Operational_Hub_Code}')`);
         }
 
         if (Company_Code && Company_Code != "") {
-            conditions.push(`Company_Code = '${Company_Code}'`);
+            conditions.push(`LOWER(Company_Code) = LOWER('${Company_Code}')`);
         }
         if (Company_Full_Name && Company_Full_Name != "") {
-            conditions.push(`Company_Full_Name = '${Company_Full_Name}'`);
+            conditions.push(`LOWER(Company_Full_Name) = LOWER('${Company_Full_Name}')`);
         }
 
         if (Segment && Segment != "") {
-            conditions.push(`Segment = '${Segment}'`)
+            conditions.push(`LOWER(Segment) = LOWER('${Segment}')`)
         }
         if (Sales_Person_Name && Sales_Person_Name != "") {
-            conditions.push(`Sales_Person_Name = '${Sales_Person_Name}'`)
+            conditions.push(`LOWER(Sales_Person_Name) = LOWER('${Sales_Person_Name}')`)
         }
         if (Market_Code && Market_Code != "") {
-            conditions.push(`Market_Code = '${Market_Code}'`)
+            conditions.push(`LOWER(Market_Code) = LOWER('${Market_Code}')`)
         }
         if (Operational_Site_Group && Operational_Site_Group != "") {
-            conditions.push(`Operational_Site_Group = '${Operational_Site_Group}'`)
+            conditions.push(`LOWER(Operational_Site_Group) = LOWER('${Operational_Site_Group}')`)
         }
         if (Plant_Code && Plant_Code != "") {
-            conditions.push(`Plant_Code = '${Plant_Code}'`)
+            conditions.push(`LOWER(Plant_Code) = LOWER('${Plant_Code}')`)
         }
         if (Plant_Name && Plant_Name != "") {
-            conditions.push(`Plant_Name = '${Plant_Name}'`)
+            conditions.push(`LOWER(Plant_Name) = LOWER('${Plant_Name}')`)
         }
         if (Commercial_Name && Commercial_Name != "") {
-            conditions.push(`Commercial_Name = '${Commercial_Name}'`)
+            conditions.push(`LOWER(Commercial_Name) = LOWER('${Commercial_Name}')`)
         }
         if (Package_Type && Package_Type != "") {
-            conditions.push(`Package_Type = '${Package_Type}'`)
+            conditions.push(`LOWER(Package_Type) = LOWER('${Package_Type}')`)
         }
         if (Product_Code && Product_Code != "") {
-            conditions.push(`Product_Code = '${Product_Code}'`)
+            conditions.push(`LOWER(Product_Code) = LOWER('${Product_Code}')`)
         }
         if (Mineral_Calc && Mineral_Calc != "") {
-            conditions.push(`Mineral_Calc = '${Mineral_Calc}'`)
+            conditions.push(`LOWER(Mineral_Calc) = LOWER('${Mineral_Calc}')`)
         }
         if (SOP_Mineral_Group && SOP_Mineral_Group != "") {
-            conditions.push(`SOP_Mineral_Group = '${SOP_Mineral_Group}'`)
+            conditions.push(`LOWER(SOP_Mineral_Group) = LOWER('${SOP_Mineral_Group}')`)
         }
 
         if(conditions.length == 0){

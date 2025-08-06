@@ -8,8 +8,7 @@ const connectPostgresDB = () => {
             port: 5432,
             database: "postgres",
             user: "postgres.ycwbjcyksweukbednmgr",
-            password: "EjZbsSUZ8fAA2Hxr",
-            pool_mode: "session"
+            password: "EjZbsSUZ8fAA2Hxr"
         });
         pool.connect().then(
             console.log("POSTGRES CONNECTED")
