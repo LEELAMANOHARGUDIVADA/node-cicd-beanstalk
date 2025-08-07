@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allCustomers, searchCustomers } from "../controllers/CustomerController.js";
+import { allCustomers, searchCustomers, updateCustomers } from "../controllers/CustomerController.js";
 
 const router = Router();
 
@@ -118,5 +118,7 @@ router.get('/',  allCustomers);
  *               
  */
 router.get('/search',  searchCustomers);
+
+router.put('/update', updateCustomers);
 
 export default router;

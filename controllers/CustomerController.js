@@ -1,4 +1,4 @@
-import { allCustomersQuery, searchCustomersQuery } from "../constants/queries.js";
+import { allCustomersQuery, searchCustomersQuery, updateCustomersQuery } from "../constants/queries.js";
 import { pool } from "../db/postgresPool.js";
 
 
@@ -258,11 +258,119 @@ const searchCustomers = async (req, res) => {
 
 const updateCustomers = async (req, res) => {
     try {
+        const {
+            BA_Origin,
+            Customer_Group_Calc,
+            Cust_Name,
+            Cust_No,
+            Cust_Elim_or_Name,
+            Cust_Sales_Area,
+            Company_Code,
+            Company_Full_Name,
+            Segment,
+            Sales_Person_Name,
+            Market_Code,
+            Operational_Hub_Code,
+            Operational_Site_Group,
+            Plant_Code,
+            Plant_Name,
+            Commercial_Name,
+            Package_Type,
+            Product_Code,
+            Mineral_Calc,
+            SOP_Mineral_Group,
+            id
+        } = req.query;
+
+        let query = updateCustomersQuery
+        let conditions = [];
+
+        if (BA_Origin && BA_Origin != "") {
+            conditions.push(` BA_Origin = '${BA_Origin}'`);
+        }
+
+        if (Customer_Group_Calc && Customer_Group_Calc != "") {
+            conditions.push(` Customer_Group_Calc = '${Customer_Group_Calc}'`);
+        }
+        if (Cust_Name && Cust_Name != "") {
+            conditions.push(` Cust_Name = '${Cust_Name}'`);
+        }
+        if (Cust_No && Cust_No != "") {
+            conditions.push(` Cust_No = '${Cust_No}'`);
+        }
+        if (Cust_Elim_or_Name && Cust_Elim_or_Name != "") {
+            conditions.push(` Cust_Elim_or_Name = '${Cust_Elim_or_Name}'`);
+        }
+        if (Cust_Sales_Area && Cust_Sales_Area != "") {
+            conditions.push(` Cust_Sales_Area = '${Cust_Sales_Area}'`);
+        }
+        if (Operational_Hub_Code && Operational_Hub_Code != "") {
+            conditions.push(` Operational_Hub_Code = '${Operational_Hub_Code}'`);
+        }
+
+        if (Company_Code && Company_Code != "") {
+            conditions.push(` Company_Code = '${Company_Code}'`);
+        }
+        if (Company_Full_Name && Company_Full_Name != "") {
+            conditions.push(` Company_Full_Name = '${Company_Full_Name}'`);
+        }
+
+        if (Segment && Segment != "") {
+            conditions.push(` Segment = '${Segment}'`);
+        }
+        if (Sales_Person_Name && Sales_Person_Name != "") {
+            conditions.push(` Sales_Person_Name = '${Sales_Person_Name}'`);
+        }
+        if (Market_Code && Market_Code != "") {
+            conditions.push(` Market_Code = '${Market_Code}'`);
+        }
+        if (Operational_Site_Group && Operational_Site_Group != "") {
+            conditions.push(` Operational_Site_Group = '${Operational_Site_Group}'`);
+        }
+        if (Plant_Code && Plant_Code != "") {
+            conditions.push(` Plant_Code = '${Plant_Code}'`);
+        }
+        if (Plant_Name && Plant_Name != "") {
+            conditions.push(` Plant_Name = '${Plant_Name}'`);
+        }
+        if (Commercial_Name && Commercial_Name != "") {
+            conditions.push(` Commercial_Name = '${Commercial_Name}'`);
+        }
+        if (Package_Type && Package_Type != "") {
+            conditions.push(` Package_Type = '${Package_Type}'`);
+        }
+        if (Product_Code && Product_Code != "") {
+            conditions.push(` Product_Code = '${Product_Code}'`);
+        }
+        if (Mineral_Calc && Mineral_Calc != "") {
+            conditions.push(` Mineral_Calc = '${Mineral_Calc}'`);
+        }
+        if (SOP_Mineral_Group && SOP_Mineral_Group != "") {
+            conditions.push(` SOP_Mineral_Group = '${SOP_Mineral_Group}'`);
+        }
+        
+        query += conditions.join(',');
+        query += ` WHERE id = ${id} `;
+        console.log(query);
+        pool.query(query, function(err, results) {
+            if(err){
+                return res.status(400).json({ success: false, message: err });
+            }
+            if(results.rowCount < 1){
+                return res.status(400).json({ success: false, message: "Error Updating Field" });
+            }
+
+            return res.status(200).json({ 
+                success: true, 
+                message: "Customers Updated" 
+            });
+        });
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ success: false, message: error.message });
     }
 }
 
 
-export { allCustomers, searchCustomers }
+export { allCustomers, searchCustomers, updateCustomers }
