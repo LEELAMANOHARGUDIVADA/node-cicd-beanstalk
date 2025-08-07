@@ -11,7 +11,7 @@ const allCustomers = async (req, res) => {
             if (results.rowCount == 0) {
                 return res.status(400).json({ success: false, message: "No Data Found" })
             }
-            return res.status(200).json({ success: true, message: "Customers Fetched", customers: results.rows });
+            return res.status(200).json({ success: true, rowCount: results.rowCount, customers: results.rows });
         });
 
     } catch (error) {
