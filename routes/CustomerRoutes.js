@@ -118,7 +118,108 @@ router.get('/',  allCustomers);
  *               
  */
 router.get('/search',  searchCustomers);
-
+/**
+ * @swagger
+ * /api/customers/update:
+ *   put:
+ *     summary: Updates Customers Data
+ *     tags: [Customers]
+ *     parameters:
+ *          - in : query
+ *            name: BA_Origin
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Customer_Group_Calc
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Cust Name
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Cust_No
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Cust_Elim_or_Name
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Cust_Sales_Area
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Company_Code
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Company_Full_Name
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Segment
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Sales_Person_Name
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Market_Code
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Operational_Hub_Code
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Operational_Site_Group
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Plant_Code
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Plant_Name
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Commercial_Name
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Package_Type
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Product_Code
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: Mineral_Calc
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: SOP_Mineral_Group
+ *            schema:
+ *              type: string
+ *          - in : query
+ *            name: id
+ *            schema:
+ *              type: number | any
+ *          
+ *     responses:
+ *       200:
+ *         description: Updates Customer
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               
+ *               
+ */
 router.put('/update', updateCustomers);
 
 export default router;
