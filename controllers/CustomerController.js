@@ -220,6 +220,7 @@ const searchCustomers = async (req, res) => {
         }
 
         query += conditions.join(' AND ');
+        query +=  ' ORDER BY id '
         
         // console.log(query);
         pool.query(query, function (err, results) {
