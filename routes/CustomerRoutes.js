@@ -309,7 +309,7 @@ router.put('/update', updateCustomers);
  *            schema:
  *              type: string
  *          - in : query
- *            name: id
+ *            name: ids
  *            schema:
  *              type: number | any
  *          
