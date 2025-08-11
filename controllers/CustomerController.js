@@ -1,4 +1,4 @@
-import { allCustomersQuery, searchCustomersQuery, updateCustomersQuery } from "../constants/queries.js";
+import { allCustomersQuery, searchCustomersQuery, updateCustomersQuery, updateMultiCustomersQuery } from "../constants/queries.js";
 import { pool } from "../db/postgresPool.js";
 
 
@@ -373,5 +373,255 @@ const updateCustomers = async (req, res) => {
     }
 }
 
+const updateMultipleCustomers = async(req, res) => {
+    try {
+        const {
+            BA_Origin,
+            Customer_Group_Calc,
+            Cust_Name,
+            Cust_No,
+            Cust_Elim_or_Name,
+            Cust_Sales_Area,
+            Company_Code,
+            Company_Full_Name,
+            Segment,
+            Sales_Person_Name,
+            Market_Code,
+            Operational_Hub_Code,
+            Operational_Site_Group,
+            Plant_Code,
+            Plant_Name,
+            Commercial_Name,
+            Package_Type,
+            Product_Code,
+            Mineral_Calc,
+            SOP_Mineral_Group,
+            ids
+        } = req.query;
 
-export { allCustomers, searchCustomers, updateCustomers }
+        const customerIds = ids.split(',');
+        let query = updateCustomersQuery;
+        const conditions = [];
+
+        if(BA_Origin && BA_Origin !=""){
+            const values = BA_Origin.split(',');
+            let temp = '';
+            temp += `BA_Origin = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Customer_Group_Calc && Customer_Group_Calc !=""){
+            const values = Customer_Group_Calc.split(',');
+            let temp = '';
+            temp += `Customer_Group_Calc = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Cust_Name && Cust_Name !=""){
+            const values = Cust_Name.split(',');
+            let temp = '';
+            temp += `Cust_Name = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Cust_No && Cust_No !=""){
+            const values = Cust_No.split(',');
+            let temp = '';
+            temp += `Cust_No = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Cust_Elim_or_Name && Cust_Elim_or_Name !=""){
+            const values = Cust_Elim_or_Name.split(',');
+            let temp = '';
+            temp += `Cust_Elim_or_Name = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Cust_Sales_Area && Cust_Sales_Area !=""){
+            const values = Cust_Sales_Area.split(',');
+            let temp = '';
+            temp += `Cust_Sales_Area = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Company_Code && Company_Code !=""){
+            const values = Company_Code.split(',');
+            let temp = '';
+            temp += `Company_Code = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Company_Full_Name && Company_Full_Name !=""){
+            const values = Company_Full_Name.split(',');
+            let temp = '';
+            temp += `Company_Full_Name = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Segment && Segment !=""){
+            const values = Segment.split(',');
+            let temp = '';
+            temp += `Segment = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Sales_Person_Name && Sales_Person_Name !=""){
+            const values = Sales_Person_Name.split(',');
+            let temp = '';
+            temp += `Sales_Person_Name = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Market_Code && Market_Code !=""){
+            const values = Market_Code.split(',');
+            let temp = '';
+            temp += `Market_Code = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Operational_Hub_Code && Operational_Hub_Code !=""){
+            const values = Operational_Hub_Code.split(',');
+            let temp = '';
+            temp += `Operational_Hub_Code = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Operational_Site_Group && Operational_Site_Group !=""){
+            const values = Operational_Site_Group.split(',');
+            let temp = '';
+            temp += `Operational_Site_Group = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Plant_Code && Plant_Code !=""){
+            const values = Plant_Code.split(',');
+            let temp = '';
+            temp += `Plant_Code = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Plant_Name && Plant_Name !=""){
+            const values = Plant_Name.split(',');
+            let temp = '';
+            temp += `Plant_Name = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Commercial_Name && Commercial_Name !=""){
+            const values = Commercial_Name.split(',');
+            let temp = '';
+            temp += `Commercial_Name = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Package_Type && Package_Type !=""){
+            const values = Package_Type.split(',');
+            let temp = '';
+            temp += `Package_Type = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Product_Code && Product_Code !=""){
+            const values = Product_Code.split(',');
+            let temp = '';
+            temp += `Product_Code = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(Mineral_Calc && Mineral_Calc !=""){
+            const values = Mineral_Calc.split(',');
+            let temp = '';
+            temp += `Mineral_Calc = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        if(SOP_Mineral_Group && SOP_Mineral_Group !=""){
+            const values = SOP_Mineral_Group.split(',');
+            let temp = '';
+            temp += `SOP_Mineral_Group = (CASE `
+            for(let i = 0; i<customerIds.length; i++){
+                temp += `WHEN id = ${customerIds[i]} THEN '${values[i]}' `
+            }
+            temp += `END) `
+            conditions.push(temp);
+        }
+        
+        query += conditions.join(',');
+        query += ` WHERE id IN (${ids})`
+        console.log(query);
+        pool.query(query, function(err, results){
+            if(err){
+                return res.status(400).json({ success: false, message: err });
+            }
+            if(results.rowCount < 1){
+                return res.status(400).json({ success: false, message: "Error Updating Field" });
+            }
+            return res.status(200).json({ success: true, message: "Customers Updated" });
+        });
+
+
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+
+export { allCustomers, searchCustomers, updateCustomers, updateMultipleCustomers }
