@@ -324,7 +324,28 @@ router.put('/update', updateCustomers);
  *               
  */
 router.put('/updatemulti', updateMultipleCustomers);
-
+/**
+ * @swagger
+ * /api/customers/delete:
+ *   delete:
+ *     summary: Deletes Multiple Customers Data. Pass Multiple Values (Comma Separated)
+ *     tags: [Customers]
+ *     parameters:
+ *          - in : query
+ *            name: ids
+ *            schema:
+ *              type: string
+ *          
+ *     responses:
+ *       200:
+ *         description: Deletes  Customers
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               
+ *               
+ */
 router.delete('/delete', deleteCustomers);
 
 export default router;
