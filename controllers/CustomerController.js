@@ -1,4 +1,4 @@
-import { allCustomersQuery, searchCustomersQuery, updateCustomersQuery, updateMultiCustomersQuery } from "../constants/queries.js";
+import { allCustomersQuery, deleteCustomersQuery, searchCustomersQuery, updateCustomersQuery, updateMultiCustomersQuery } from "../constants/queries.js";
 import { pool } from "../db/postgresPool.js";
 
 
@@ -623,5 +623,29 @@ const updateMultipleCustomers = async (req, res) => {
     }
 }
 
+const deleteCustomers = async(req, res) => {
+    try {
+        const { ids } = req.query;
 
-export { allCustomers, searchCustomers, updateCustomers, updateMultipleCustomers }
+        let query = deleteCustomersQuery;
+        query += ` id IN (${ids}) `;
+        console.log(query);
+
+        pool.query(query, function(err,results) {
+            if(err){
+                return res.status(400).json({ success: false, message: err });
+            }
+
+            if(results.rowCount <= 0){
+                return res.status(400).json({ success: false, message: "Error Deleting Customers" });
+            }
+
+            return res.status(200).json({ success: true, message: 'Customers Deleted' });
+        });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+
+export { allCustomers, searchCustomers, updateCustomers, updateMultipleCustomers, deleteCustomers };
